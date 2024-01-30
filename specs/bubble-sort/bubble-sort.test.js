@@ -13,21 +13,19 @@
 function bubbleSort(nums) {
   let swapped = false;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] > nums[i + 1]) {
-      // swap
-      const larger = nums[i];
-      const smaller = nums[i + 1];
-      nums[i] = smaller;
-      nums[i + 1] = larger;
-      swapped = true;
+  do {
+    swapped = false; 
+    
+    for (let i = 0; i < nums.length - 1; i++) {
+      if (nums[i] > nums[i + 1]) {
+        const larger = nums[i];
+        nums[i] = nums[i + 1];
+        nums[i + 1] = larger;
+        swapped = true;
+      }
     }
-  }
 
-  if (swapped) {
-    bubbleSort(nums);
-    swapped = false;
-  }
+  } while (swapped);
 
   return nums;
 }
