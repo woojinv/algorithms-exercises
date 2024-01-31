@@ -14,23 +14,25 @@
 */
 
 function insertionSort(nums) {
-  // Outer loop starts at 2nd element in array.
+  // Outer loop: Starting at second element in array,
+  // it checks to see where in sorted portion element should be inserted. 
   for (let i = 1; i < nums.length; i++) {
     const current = nums[i];
     let sorted = i - 1;
 
-    // Inner loop responsible for shifting elements to the right to make room for "current".
+    // Inner loop: Responsible for shifting elements to right to make room for "current". 
+    // Iterates backwards through sorted portion of array.
     for (let j = i - 1; j >= 0; j--) {
       // Once "current" is greater than element being compared to,
       // we know the it's greater than remaining elements,
       // since those have already been sorted.
-      // So we can stop comparing elements with the current "current" element and go to the next iteration.
+      // So we can stop comparing elements with current "current" element and go to next iteration.
       if (current >= nums[j]) break;
 
-      // Shift elements to the right, making room for "current" to be inserted.
+      // Shift elements to right, making room for "current" to be inserted.
       nums[j + 1] = nums[j];
 
-      // Update where the array has been sorted to.
+      // Update where array has been sorted to.
       sorted = j;
     }
 
