@@ -7,12 +7,45 @@
 */
 
 const mergeSort = (nums) => {
-  // code goes here
+  // 1. if the array has a length of 1, then just return that value.
+  if (nums.length === 1) return nums;
+
+  // split the array.
+  const middleIndex = nums.length / 2;
+  const leftArr = nums.splice(0, middleIndex);
+  const rightArr = nums;
+
+  mergeSort(leftArr);
+  mergeSort(rightArr);
 };
+
+function compareSort(leftArr, rightArr) {
+  const sortedArr = [];
+
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  for (let i = 0; i < leftArr.length; i++) {
+    if (leftIndex === leftArr.length - 1) {
+      return sortedArr.concat(rightArr);
+    }
+    if (rightIndex === rightArr.length - 1) {
+      return sortedArr.concat(leftArr);
+    }
+
+    if (leftArr[leftIndex] < rightArr[rightIndex]) {
+      sortedArr.push(leftArr[leftIndex]);
+      leftIndex++;
+    } else {
+      sortedArr.push(rightArr[rightIndex]);
+      rightIndex++;
+    }
+  }
+}
 
 // unit tests
 // do not modify the below code
-test.skip("merge sort", function () {
+test('merge sort', function () {
   const nums = [10, 5, 3, 8, 2, 6, 4, 7, 9, 1];
   const ans = mergeSort(nums);
   expect(ans).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
