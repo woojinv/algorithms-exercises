@@ -15,8 +15,7 @@ const mergeSort = (nums) => {
   const leftArr = nums.splice(0, middleIndex);
   const rightArr = nums;
 
-  mergeSort(leftArr);
-  mergeSort(rightArr);
+  return compareSort(mergeSort(leftArr), mergeSort(rightArr));
 };
 
 function compareSort(leftArr, rightArr) {
@@ -25,14 +24,7 @@ function compareSort(leftArr, rightArr) {
   let leftIndex = 0;
   let rightIndex = 0;
 
-  for (let i = 0; i < leftArr.length; i++) {
-    if (leftIndex === leftArr.length - 1) {
-      return sortedArr.concat(rightArr);
-    }
-    if (rightIndex === rightArr.length - 1) {
-      return sortedArr.concat(leftArr);
-    }
-
+  while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
     if (leftArr[leftIndex] < rightArr[rightIndex]) {
       sortedArr.push(leftArr[leftIndex]);
       leftIndex++;
@@ -41,6 +33,8 @@ function compareSort(leftArr, rightArr) {
       rightIndex++;
     }
   }
+
+  return sortedArr.concat(rightArr.slice(rightIndex)).concat(leftArr.slice(leftIndex));
 }
 
 // unit tests
