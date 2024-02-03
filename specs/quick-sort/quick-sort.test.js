@@ -29,9 +29,6 @@ function quickSort(nums) {
     }
   }
 
-  console.log(left, '<<< left');
-  console.log(right, '<<< right');
-
   const sortedLeft = quickSort(left);
   if (Array.isArray(sortedLeft)) {
     sortedLeft.push(pivot);
