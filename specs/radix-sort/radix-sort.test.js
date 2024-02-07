@@ -13,6 +13,23 @@ function radixSort(array) {
   // get max number of digits.
   const lengthOfLongestNumber = getLengthOfLongestNumber(array);
 
+  // loop that many number of times, counting down to 0.
+
+  // create an arrays of arrays to represent buckets for each digit 0-9.
+  // new Array(10) creates an empty array of length 10, but there aren't actually ten items, so the array needs to be filled.
+  // .fill() will fill those empty slots with specified values. Since nothing is passed, 'undefined' will be used.
+  // .map(() => []) iterates through each item in the array, and returns [] to replace the 'undefined' in each index of the array.
+  const buckets = new Array(10).fill().map(() => []);
+
+  for (let i = lengthOfLongestNumber - 1; i >= 0; i--) {
+    // loop through the input array,
+    // loop until the input array is empty.
+    while (array.length) {
+      // get the value of the number at the current significant digit.
+    }
+    // push the number into its associated bucket until the input array is empty.
+    // then push the numbers from the buckets into the empty input array in the order they are in the buckets.
+  }
 }
 
 function getLengthOfLongestNumber(nums) {
@@ -25,6 +42,12 @@ function getLengthOfLongestNumber(nums) {
   }
   return length;
 }
+
+function getDigitValue(num, currentDigit, lengthOfLongestNumber) {
+  // left pad number with 0s to be the lengthOfLongestNumber so that numbers shorter than that can still be accessed using the index.
+  
+  const digitValue = num.toString()
+} 
 
 // unit tests
 // do not modify the below code
