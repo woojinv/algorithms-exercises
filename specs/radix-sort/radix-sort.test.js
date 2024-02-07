@@ -10,36 +10,20 @@
 */
 
 function radixSort(array) {
-  // get number of iterations for loop from input array.
-  const maxNumDigits = Math.max(...array).toString().length;
+  // get max number of digits.
+  const lengthOfLongestNumber = getLengthOfLongestNumber(array);
 
-  // create loop based on retrieved number of iterations
-  for (let i = 0; i < maxNumDigits; i++) {
-    const buckets = [[], [], [], [], [], [], [], [], [], []];
-    for (let j = 0; j < array.length; j++) {
-      // from each item, get value of current significant digit.
-      const currentSigDigit = getCurrentSignificantDigitValue(array[j], i);
-      // place item in corresponding bucket.
-      buckets[currentSigDigit].push(array[j]);
-    }
-
-    // clear array before pushing items into it.
-    array = [];
-    // dequeue items from buckets
-    for (let k = 0; k < buckets.length; k++) {
-      array.push(...buckets[k]);
-    }
-  }
-
-  // pass through array again.
-  return array;
 }
 
-function getCurrentSignificantDigitValue(num, significantDigit) {
-  const { length } = num.toString();
-  const value = Number(num.toString()[length - 1 - significantDigit]);
-
-  return Number.isNaN(value) ? 0 : value;
+function getLengthOfLongestNumber(nums) {
+  let length = 0;
+  for (let i = 0; i < nums.length; i++) {
+    const lengthOfCurrentNumber = nums[i].toString().length;
+    if (lengthOfCurrentNumber > length) {
+      length = lengthOfCurrentNumber;
+    }
+  }
+  return length;
 }
 
 // unit tests
