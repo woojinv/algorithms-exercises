@@ -10,65 +10,68 @@
 */
 
 function radixSort(array) {
-  // get max number of digits.
-  const lengthOfLongestNumber = getLengthOfLongestNumber(array);
+  const largestNumberLength = getLargestNumberLength(array);
 
-  // loop that many number of times, counting down to 0.
-
-  // create an arrays of arrays to represent buckets for each digit 0-9.
-  // new Array(10) creates an empty array of length 10, but there aren't actually ten items, so the array needs to be filled.
-  // .fill() will fill those empty slots with specified values. Since nothing is passed, 'undefined' will be used.
-  // .map(() => []) iterates through each item in the array, and returns [] to replace the 'undefined' in each index of the array.
+  // create 10 buckets for digits numbers 0-9.
   const buckets = new Array(10).fill().map(() => []);
 
-  for (let i = lengthOfLongestNumber - 1; i >= 0; i--) {
-    // loop through the input array,
-    // loop until the input array is empty.
+  // loop through array.
+  // the number of digits in longest item is how many times to loop.
+  for (let currentSigDigIndex = largestNumberLength - 1; currentSigDigIndex >= 0; currentSigDigIndex--) {
     while (array.length) {
-      // get the value of the number at the current significant digit.
+      const current = array.shift();
+      // track which significant digit you are currently sorting by.
+      // retrieve the value of that sig digit for the current iteration.
+      const valueAtSigDig = getValueAtSigDig(current, currentSigDigIndex, largestNumberLength);
+
+      // put that entire item into the bucket for its corresponding sig digit value.
+      buckets[valueAtSigDig].push(current);
     }
-    // push the number into its associated bucket until the input array is empty.
-    // then push the numbers from the buckets into the empty input array in the order they are in the buckets.
+
+    // once all item from original array are in the buckets,
+    // empty the items in the buckets into the original array,
+    // maintaining their order in the buckets, from 0-9.
+    for (let k = 0; k < buckets.length; k++) {
+      while (buckets[k].length) {
+        array.push(buckets[k].shift());
+      }
+    }
   }
+  // once this process is repeated enough times, return the sorted array.
+
+  return array;
 }
 
-function getLengthOfLongestNumber(nums) {
-  let length = 0;
+function getLargestNumberLength(nums) {
+  let largestNumber = 0;
   for (let i = 0; i < nums.length; i++) {
-    const lengthOfCurrentNumber = nums[i].toString().length;
-    if (lengthOfCurrentNumber > length) {
-      length = lengthOfCurrentNumber;
-    }
+    const currentNum = nums[i];
+    if (currentNum > largestNumber) largestNumber = currentNum;
   }
-  return length;
+
+  return largestNumber.toString().length;
 }
 
-function getDigitValue(num, currentDigit) {
-  // convert digit to string.
-  // access digit at index of current digit - 1.
-  return num.toString()[currentDigit - 1] || 0;
+function getValueAtSigDig(currentNumber, currentSigDigIndex, largestNumberLength) {
+  const currentNumLength = currentNumber.toString().length;
+  const modifier = largestNumberLength - currentNumLength;
+
+  return currentNumber.toString()[currentSigDigIndex - modifier] || 0;
 }
 
 // unit tests
 // do not modify the below code
-describe("radix sort", function () {
-  it("should sort correctly", () => {
-    const nums = [
-      20, 51, 3, 801, 415, 62, 4, 17, 19, 11, 1, 100, 1244, 104, 944, 854, 34,
-      3000, 3001, 1200, 633,
-    ];
+describe('radix sort', function () {
+  it('should sort correctly', () => {
+    const nums = [20, 51, 3, 801, 415, 62, 4, 17, 19, 11, 1, 100, 1244, 104, 944, 854, 34, 3000, 3001, 1200, 633];
     const ans = radixSort(nums);
-    expect(ans).toEqual([
-      1, 3, 4, 11, 17, 19, 20, 34, 51, 62, 100, 104, 415, 633, 801, 854, 944,
-      1200, 1244, 3000, 3001,
-    ]);
+    expect(ans).toEqual([1, 3, 4, 11, 17, 19, 20, 34, 51, 62, 100, 104, 415, 633, 801, 854, 944, 1200, 1244, 3000, 3001]);
   });
-  it("should sort 99 random numbers correctly", () => {
+  it('should sort 99 random numbers correctly', () => {
     const fill = 99;
-    const nums = new Array(fill)
-      .fill()
-      .map(() => Math.floor(Math.random() * 500000));
+    const nums = new Array(fill).fill().map(() => Math.floor(Math.random() * 500000));
     const ans = radixSort(nums);
+    console.log(ans, '<<< ans');
     expect(ans).toEqual(nums.sort());
   });
 });
