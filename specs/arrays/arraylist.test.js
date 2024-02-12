@@ -46,6 +46,9 @@ class ArrayList {
       this.data[i] = this.data[i + 1];
     }
 
+    // need to get rido the last eleemnt.
+    delete this.data[this.length - 1];
+    console.log(this.data, '<<< this.data');
     this.length -= 1;
     return value;
   }
