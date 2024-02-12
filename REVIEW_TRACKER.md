@@ -23,3 +23,5 @@ February 11, 2024
 [x] insertion sort
 [x] merge sort
 [x] quick sort
+
+February 12, 2024
