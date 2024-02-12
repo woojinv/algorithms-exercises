@@ -12,15 +12,23 @@ function linearSearch(id, array) {
 }
 
 function binarySearch(id, array) {
+  let min = 0;
+  let max = array.length - 1;
+
   let result;
-  const middleIndex = Math.floor(array.length / 2);
-  const middleItem = array[middleIndex];
-  if (id === middleItem.id) {
-    result = middleItem;
-  } else if (id < middleItem.id) {
-    result = binarySearch(id, array.slice(0, middleIndex));
-  } else {
-    result = binarySearch(id, array.slice(middleIndex));
+
+  for (let i = 0; i < array.length; i++) {
+    const middleIndex = Math.floor(max / 2);
+    const middleItem = array[min + middleIndex];
+
+    if (id === middleItem.id) {
+      result = middleItem;
+      break;
+    } else if (id < middleItem.id) {
+      max = middleIndex;
+    } else {
+      min = middleIndex;
+    }
   }
 
   return result;
