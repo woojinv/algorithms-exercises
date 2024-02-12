@@ -25,3 +25,4 @@ February 11, 2024
 [x] quick sort
 
 February 12, 2024
+[x] binary search
