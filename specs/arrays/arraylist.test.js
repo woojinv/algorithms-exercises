@@ -18,40 +18,6 @@
 */
 
 class ArrayList {
-  constructor() {
-    this.data = {};
-    this.length = 0;
-  }
-
-  push(item) {
-    this.data[this.length] = item;
-    this.length += 1;
-  }
-
-  pop() {
-    const value = this.data[this.length - 1];
-    delete this.data[this.length - 1];
-    this.length -= 1;
-    return value;
-  }
-
-  get(index) {
-    return this.data[index];
-  }
-
-  delete(index) {
-    const value = this.data[index];
-
-    for (let i = index; i < this.length - 1; i++) {
-      this.data[i] = this.data[i + 1];
-    }
-
-    // need to get rido the last eleemnt.
-    delete this.data[this.length - 1];
-    console.log(this.data, '<<< this.data');
-    this.length -= 1;
-    return value;
-  }
 }
 
 // unit tests
