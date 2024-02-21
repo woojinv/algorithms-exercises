@@ -36,4 +36,8 @@ took break to build pomodoro timer.
 
 February 20, 2024
 
-- [x] buble sort
+- [x] bubble sort
+- [x] insertion sort
+- [x] merge sort
+- [x] quick sort
+- [ ] radix sort
